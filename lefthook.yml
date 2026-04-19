@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: oxfmt
+      glob: "*.{ts,md,json,yml}"
+      run: bunx oxfmt --write {staged_files}
+      stage_fixed: true
+
+    - name: oxlint
+      glob: "*.ts"
+      run: bunx oxlint --type-aware --type-check --fix {staged_files}
+      stage_fixed: true
+
+    - name: typecheck
+      glob: "*.ts"
+      run: bun run typecheck

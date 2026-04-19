@@ -1,0 +1,28 @@
+{
+  "name": "pi-xai-imagine",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "bunx tsgo -p tsconfig.json --noEmit",
+    "lint": "oxlint --type-aware --type-check *.ts",
+    "lint:fix": "oxlint --type-aware --type-check --fix *.ts",
+    "format": "oxfmt --check *.ts *.md *.json *.yml",
+    "format:fix": "oxfmt --write *.ts *.md *.json *.yml",
+    "check": "bun run format && bun run lint && bun run typecheck",
+    "check:ci": "bun run check",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "@mariozechner/pi-ai": "^0.67.68",
+    "@mariozechner/pi-coding-agent": "^0.67.68",
+    "@sinclair/typebox": "^0.34.49"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260410.1",
+    "lefthook": "^2.1.5",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0",
+    "typescript": "^5.7.0"
+  }
+}
