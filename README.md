@@ -1,5 +1,7 @@
 # Pi xAI Imagine
 
+[![CI](https://github.com/luxus/pi-xai-imagine/actions/workflows/ci.yml/badge.svg)](https://github.com/luxus/pi-xai-imagine/actions/workflows/ci.yml)
+
 ![Pi xAI Imagine banner](./assets/pi-xai-imagine-github-banner.png)
 
 Standalone Pi extension for xAI media workflows.
