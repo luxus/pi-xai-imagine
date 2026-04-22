@@ -1,8 +1,20 @@
 {
   "name": "pi-xai-imagine",
-  "private": true,
+  "version": "0.1.0",
+  "description": "Pi extension for xAI image, video, and vision workflows",
+  "keywords": [
+    "pi-package"
+  ],
+  "license": "MIT",
+  "files": [
+    "*.ts",
+    "tsconfig.json",
+    "README.md",
+    "assets"
+  ],
   "type": "module",
   "scripts": {
+    "build": "echo 'nothing to build'",
     "typecheck": "bunx tsgo -p tsconfig.json --noEmit",
     "lint": "oxlint --type-aware --type-check *.ts",
     "lint:fix": "oxlint --type-aware --type-check --fix *.ts",
@@ -12,11 +24,7 @@
     "check:ci": "bun run check",
     "prepare": "lefthook install"
   },
-  "dependencies": {
-    "@mariozechner/pi-ai": "^0.67.68",
-    "@mariozechner/pi-coding-agent": "^0.67.68",
-    "@sinclair/typebox": "^0.34.49"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/bun": "^1.1.0",
     "@typescript/native-preview": "^7.0.0-dev.20260410.1",
@@ -25,5 +33,10 @@
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.21.1",
     "typescript": "^5.7.0"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
   }
 }

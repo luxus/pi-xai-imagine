@@ -700,6 +700,34 @@ function renderStudioHtml(state: StudioState): string {
 			object-fit: contain;
 			background: #050814;
 		}
+		input[type="file"]#ref-upload {
+			-webkit-appearance: none;
+			appearance: none;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 10px 12px;
+			font: inherit;
+			font-weight: 600;
+			border-radius: 10px;
+			background: linear-gradient(135deg, rgba(77,163,255,0.16), rgba(192,102,255,0.18));
+			border: 1px solid rgba(77,163,255,0.28);
+			color: var(--text);
+			cursor: pointer;
+			width: auto;
+			font-size: 0;
+		}
+		input[type="file"]#ref-upload::-webkit-file-upload-button {
+			-webkit-appearance: none;
+			appearance: none;
+			background: transparent;
+			border: none;
+			color: var(--text);
+			font: inherit;
+			font-weight: 600;
+			cursor: pointer;
+			font-size: 14px;
+		}
 		@media (max-width: 1180px) {
 			main { grid-template-columns: 1fr; }
 			.current-preview { grid-template-columns: 1fr; }
@@ -735,7 +763,6 @@ function renderStudioHtml(state: StudioState): string {
 			<section class="block">
 				<h2>Reference images</h2>
 				<p class="subtle">Grok-style remix input. Drag/drop images or use picker button. Add up to 5 refs for remix/edit/video guidance.</p>
-				<input id="ref-upload" class="upload-input" type="file" accept="image/*" multiple ${disabledAttr(state.busy)} onchange="uploadReferences(this)" />
 				<div
 					id="ref-dropzone"
 					class="dropzone"
@@ -746,7 +773,7 @@ function renderStudioHtml(state: StudioState): string {
 					<div class="dropzone-title">Drop reference images here</div>
 					<div class="dropzone-copy">PNG, JPG, WEBP, GIF. Studio converts files to data URLs before sending.</div>
 					<div class="toolbar">
-						<button class="secondary" ${disabledAttr(state.busy)} onclick="openReferencePicker()">Choose reference images</button>
+						<input id="ref-upload" type="file" accept="image/*" multiple ${disabledAttr(state.busy)} onchange="uploadReferences(this)" />
 						<button class="ghost" ${disabledAttr(state.busy || !state.referenceImages.length)} onclick="clearReferences()">Clear refs</button>
 					</div>
 				</div>
@@ -955,10 +982,6 @@ function renderStudioHtml(state: StudioState): string {
 			if (event.key === 'Escape') closeImageLightbox();
 		});
 		function sendAction(type, extra) { send(Object.assign({ type, controls: collectControls() }, extra || {})); }
-		function openReferencePicker() {
-			const input = document.getElementById('ref-upload');
-			if (input) input.click();
-		}
 		async function uploadReferences(input) {
 			await uploadReferenceFiles(Array.from(input.files || []));
 			input.value = '';

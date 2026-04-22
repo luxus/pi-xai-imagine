@@ -6,6 +6,20 @@
 
 Standalone Pi extension for xAI media workflows.
 
+## Install
+
+Via npm registry:
+
+```bash
+pi install pi-xai-imagine
+```
+
+Via git:
+
+```bash
+pi install github:luxus/pi-xai-imagine
+```
+
 ## Features
 
 - `generate_image` — create images from prompt or remix from reference images
