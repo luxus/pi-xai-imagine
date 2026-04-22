@@ -24,8 +24,11 @@
     "check:ci": "bun run check",
     "prepare": "lefthook install"
   },
-  "dependencies": {},
+  "dependencies": {
+    "typebox": "^1.1.24"
+  },
   "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.69.0",
     "@types/bun": "^1.1.0",
     "@typescript/native-preview": "^7.0.0-dev.20260410.1",
     "lefthook": "^2.1.5",
