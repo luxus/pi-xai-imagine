@@ -1,6 +1,6 @@
 {
   "name": "pi-xai-imagine",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "Pi extension for xAI image, video, and vision workflows",
   "keywords": [
     "pi-package"
@@ -36,6 +36,9 @@
     "oxlint": "^1.59.0",
     "oxlint-tsgolint": "^0.21.1",
     "typescript": "^5.7.0"
+  },
+  "optionalDependencies": {
+    "pi-xai": "^0.8.0"
   },
   "pi": {
     "extensions": [

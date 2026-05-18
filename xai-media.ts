@@ -38,6 +38,7 @@ export { XaiClient, type XaiClientOptions, type XaiHealthResult } from "./xai-cl
 export {
   getPiSettingsPaths,
   getRequiredXaiApiKey,
+  getRequiredXaiApiKeySync,
   resolveXaiConfig,
   type ResolvedXaiConfig,
 } from "./xai-config.ts";

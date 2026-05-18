@@ -37,14 +37,14 @@ function createLogger(): XaiMediaLogger {
   return console;
 }
 
-function createRuntime(log = createLogger()): {
+async function createRuntime(log = createLogger()): Promise<{
   apiKey: string;
   apiKeySource: string;
   config: ResolvedXaiConfig;
   client: XaiClient;
   log: XaiMediaLogger;
-} {
-  const { apiKey, source, config } = getRequiredXaiApiKey();
+}> {
+  const { apiKey, source, config } = await getRequiredXaiApiKey();
   return {
     apiKey,
     apiKeySource: source,
@@ -127,7 +127,7 @@ async function maybeOpenStudio(options: {
 }
 
 async function runXaiHealthCheck() {
-  const runtime = createRuntime();
+  const runtime = await createRuntime();
   const health = await runtime.client.checkHealth(runtime.log);
   return {
     ...health,
@@ -212,7 +212,7 @@ const generateImageTool = defineTool({
     glimpse: COMMON_GLIMPSE_PARAM,
   }),
   async execute(_toolCallId, params, _signal, onUpdate) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     onUpdate?.({
       content: [{ type: "text", text: "Calling xAI image API..." }],
       details: { status: "running" },
@@ -298,7 +298,7 @@ const editImageTool = defineTool({
     glimpse: COMMON_GLIMPSE_PARAM,
   }),
   async execute(_toolCallId, params, _signal, onUpdate) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     onUpdate?.({
       content: [{ type: "text", text: "Editing image with xAI..." }],
       details: { status: "running" },
@@ -357,7 +357,7 @@ const generateVideoTool = defineTool({
     glimpse: COMMON_GLIMPSE_PARAM,
   }),
   async execute(_toolCallId, params, _signal, onUpdate) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     onUpdate?.({
       content: [{ type: "text", text: "Starting xAI video generation. Polling until ready..." }],
       details: { status: "running" },
@@ -399,7 +399,7 @@ const editVideoTool = defineTool({
     glimpse: COMMON_GLIMPSE_PARAM,
   }),
   async execute(_toolCallId, params, _signal, onUpdate) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     onUpdate?.({
       content: [{ type: "text", text: "Editing xAI video. Polling until ready..." }],
       details: { status: "running" },
@@ -445,7 +445,7 @@ const extendVideoTool = defineTool({
     glimpse: COMMON_GLIMPSE_PARAM,
   }),
   async execute(_toolCallId, params, _signal, onUpdate) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     onUpdate?.({
       content: [{ type: "text", text: "Extending xAI video. Polling until ready..." }],
       details: { status: "running" },
@@ -489,7 +489,7 @@ const understandImageTool = defineTool({
     ),
   }),
   async execute(_toolCallId, params, _signal, onUpdate) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     onUpdate?.({
       content: [{ type: "text", text: "Analyzing image with xAI vision..." }],
       details: { status: "running" },
@@ -536,7 +536,7 @@ const openXaiStudioTool = defineTool({
     title: Type.Optional(Type.String({ description: "Optional window title." })),
   }),
   async execute(_toolCallId, params) {
-    const runtime = createRuntime();
+    const runtime = await createRuntime();
     await openXaiStudio({
       apiKey: runtime.apiKey,
       title: params.title?.trim() || "Pi xAI Imagine Studio",
@@ -582,7 +582,7 @@ export default function piXaiImagineExtension(pi: ExtensionAPI): void {
     description: "Open native xAI media studio in Glimpse",
     handler: async (_args, ctx) => {
       try {
-        const runtime = createRuntime();
+        const runtime = await createRuntime();
         await openXaiStudio({ apiKey: runtime.apiKey, title: "Pi xAI Imagine Studio" });
         ctx.ui.notify("xAI studio opened", "info");
       } catch (error) {
